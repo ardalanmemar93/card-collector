@@ -14,7 +14,7 @@ body {
   }
 
   .card-container {
-    height: 400px; 
+    height: 18em; 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
