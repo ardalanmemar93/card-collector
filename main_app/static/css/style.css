@@ -21,6 +21,9 @@ body {
     flex-direction: column;
     justify-content: space-between;
 }
+.card-transparent {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 /* .top-text {
   color: white;
 } */
