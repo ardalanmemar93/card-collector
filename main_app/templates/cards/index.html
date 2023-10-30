@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Cat List</h1>
+
+{% for card in cards %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ card.name }}</span>
+      <p>From: {{ card.from }}</p>
+      <p>Description: {{ card.description }}</p>
+      {% if card.year > 0 %}
+        <p>Age: {{ card.year }}</p>
+      {% else %}
+        <p>Year: New</p>
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
