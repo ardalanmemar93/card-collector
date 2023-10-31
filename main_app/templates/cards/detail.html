@@ -1,24 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
 <div class="row">
-    <h1 class="col s12">Card List</h1>
-    {% for card in cards %}
-    <div class="col s12 m6 l4">
+    <h1 class="col s12">Card Details</h1>
+    <div class="col s12 m10 l8">
         <div class="card card-transparent card-container z-depth-5">
             <div class="card-content white-text">
                 <span class="card-title">{{ card.name }}</span>
                 <p>Number: {{ card.number }}</p>
-                <p>From: {{ card.anime }}</p>
-                <p>Description: {{ card.description}}</p>
-                {% if card.year > 0 %}
+                <p>Anime: {{ card.anime }}</p>
+                <p>Description: {{ card.description|linebreaks }}</p>
+                {% if card.number > 0 %}
                     <p>Year: {{ card.year }}</p>
                 {% endif %}
             </div>
-                <a href="{% url 'detail' card.id %}" class="btn detail-button white-text">Details</a>
         </div>
     </div>
-    {% endfor %}
 </div>
+
 {% endblock %}
