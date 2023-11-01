@@ -1,12 +1,42 @@
 from django.db import models
+from django.urls import reverse
+from datetime import date
 
-# Create your models here.
+GRADES = [
+    ('P', 'Pristine'),
+    ('B', 'Bad'),
+    ('G', 'Good'),
+]
+
 class Card(models.Model):
     name = models.CharField(max_length=100)
     number = models.IntegerField()
     anime = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     year = models.IntegerField()
-    
+
     def __str__(self):
         return f'{self.name} ({self.id})'
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'card_id': self.id})
+    
+    def apraised_for_today(self):
+        return self.apraisal_set.filter(date=date.today()).count() >= len(GRADES)
+
+class Apraisal(models.Model):
+    date = models.DateField('apraisal date')
+    grade = models.CharField(
+        max_length=1,
+        choices=GRADES,
+        default=GRADES[2][0],
+    )
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.get_grade_display()} on {self.date}"
+
+    class Meta:
+        ordering = ['-date']
+        
+   
