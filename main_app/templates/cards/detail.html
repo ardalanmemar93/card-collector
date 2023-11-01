@@ -31,9 +31,9 @@
     </form>
     <br>
     {% if card.appraised_for_current_month %}
-      <div class="card-panel z-depth-5 teal-text center-align">{{ card.name }} has been appraised this month</div>
+      <div class="card-panel card-transparent-one z-depth-5 lime-text center-align"><span class="small">{{ card.name }} has been appraised this month</span></div>
         {% else %}
-       <div class="card-panel z-depth-5 red-text center-align">{{ card.name }} might need appraisal this month</div>
+       <div class="card-panel card-transparent-one z-depth-5 orange-text center-align"><span class="small">{{ card.name }} might need appraisal this month</span></div>
     {% endif %}
     <table class="striped">
       <thead>
