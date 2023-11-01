@@ -23,7 +23,7 @@ class Card(models.Model):
     
     def appraised_for_current_month(self):
         today = date.today()
-        return self.apraisal_set.filter(date__month=today.month, date__year=today.year).count()
+        return self.apraisal_set.filter(date__month=today.month, date__year=today.year).count() 
 
 class Apraisal(models.Model):
     date = models.DateField('apraisal date')
