@@ -30,11 +30,11 @@
       <input type="submit" class="btn" value="Add Apraisal">
     </form>
     <br>
-    {% if card.apraised_for_today %}
-    <div class="card-panel z-depth-5 teal-text center-align">{{ card.name }} has been appraised for today</div>
-      {% else %}
-        <div class="card-panel z-depth-5 red-text center-align">{{ card.name }} might need appraisal today</div>
-      {% endif %}
+    {% if card.appraised_for_current_month %}
+      <div class="card-panel z-depth-5 teal-text center-align">{{ card.name }} has been appraised this month</div>
+        {% else %}
+       <div class="card-panel z-depth-5 red-text center-align">{{ card.name }} might need appraisal this month</div>
+    {% endif %}
     <table class="striped">
       <thead>
         <tr><th>Date</th><th>Grade</th></tr>

@@ -21,8 +21,9 @@ class Card(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'card_id': self.id})
     
-    def apraised_for_today(self):
-        return self.apraisal_set.filter(date=date.today()).count() >= len(GRADES)
+    def appraised_for_current_month(self):
+        today = date.today()
+        return self.apraisal_set.filter(date__month=today.month, date__year=today.year).count()
 
 class Apraisal(models.Model):
     date = models.DateField('apraisal date')
@@ -36,7 +37,7 @@ class Apraisal(models.Model):
     def __str__(self):
         return f"{self.get_grade_display()} on {self.date}"
 
-    class Meta:
-        ordering = ['-date']
+class Meta:
+    ordering = ['-date']
         
    
