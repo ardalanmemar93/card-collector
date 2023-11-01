@@ -16,8 +16,8 @@
         {% endif %}
       </div>
       <div class="card-action">
-        <a href="{% url 'cards_update' card.id %}">Edit</a>
-        <a href="{% url 'cards_delete' card.id %}">Delete</a>
+        <a href="{% url 'cards_update' card.id %}" class="btn detail-button white-text">Edit</a>
+        <a href="{% url 'cards_delete' card.id %}" class="btn detail-button white-text">Delete</a>
       </div>
     </div>
   </div>
