@@ -31,9 +31,9 @@
     </form>
     <br>
     {% if card.apraised_for_today %}
-    <div class="card-panel teal-text center-align">{{ card.name }} has been appraised for today</div>
+    <div class="card-panel z-depth-5 teal-text center-align">{{ card.name }} has been appraised for today</div>
       {% else %}
-        <div class="card-panel red-text center-align">{{ card.name }} might need appraisal today</div>
+        <div class="card-panel z-depth-5 red-text center-align">{{ card.name }} might need appraisal today</div>
       {% endif %}
     <table class="striped">
       <thead>
