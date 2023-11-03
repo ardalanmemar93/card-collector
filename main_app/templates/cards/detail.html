@@ -52,6 +52,19 @@
     {% else %}
       <div class="card-panel card-transparent-one z-depth-5 orange-text center-align"><span class="small">{{ card.name }} might need appraisal this month</span></div>
     {% endif %}
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Grade</th></tr>
+      </thead>
+      <tbody>
+        {% for apraisal in card.apraisal_set.all %}
+          <tr>
+            <td>{{apraisal.date}}</td>
+            <td>{{apraisal.get_grade_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
 <!-- New Markup Above -->
