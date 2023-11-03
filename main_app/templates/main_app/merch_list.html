@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Merch List</h1>
+
+{% for merch in merch_list %}
+  
+    <div class="card card-transparent z-depth-5">
+      <div class="card-content white-text">
+        <span class="card-title">{{ merch.name }}</span>
+        <p>Item: {{ merch.item }}</p>
+      </div>
+      <a href="{% url 'merchen_detail' merch.id %}" class="btn waves-effect waves-light teal white-text" style="width: 100%;">Details</a>
+    </div>
+
+{% endfor %}
+
+{% endblock %}

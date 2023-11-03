@@ -33,3 +33,7 @@ body {
 .card-transparent-one {
   background-color: rgba(64, 64, 64, 0.9);
 }
+
+.white-text {
+  color: white !important;
+}

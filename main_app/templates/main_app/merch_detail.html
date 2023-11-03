@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Merch Details</h1>
+
+<div class="row">
+  <div class="col s6 col-offset-3">
+    <div class="card card-transparent z-depth-5">
+      <div class="card-content white-text z-depth-5">
+        <span class="card-title">{{ merch.name }}</span>
+        <p>Item: {{ merch.item }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'merchen_update' merch.id %}" class="btn">Edit</a>
+        <a href="{% url 'merchen_delete' merch.id %}" class="btn">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

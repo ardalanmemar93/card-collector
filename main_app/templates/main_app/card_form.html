@@ -1,19 +1,44 @@
 {% extends 'base.html' %}
-
 {% block content %}
-{% if object %}
-    <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
+  {% if object %}
+    <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
   {% else %}
     <h1>Add Card</h1>
   {% endif %}
-  <!-- Leaving the action empty makes the form post to the same url used to display it -->
-<form action="" method="POST">
-    <!-- Django requires the following for security purposes -->
-  {% csrf_token %}
-  <table>
-    <!-- Render the inputs inside of <tr>s & <td>s -->
-    {{ form.as_table }}
-  </table>
-  <input type="submit" value="Submit!" class="btn">
-</form>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card card-transparent z-depth-5">
+          <div class="card-content white-text z-depth-5">
+            <span class="card-title">Card Details</span>
+            <div class="input-field">
+              {{ form.name.label_tag }}
+              {{ form.name }}
+            </div>
+            <div class="input-field">
+              {{ form.number.label_tag }}
+              {{ form.number }}
+            </div>
+            <div class="input-field">
+              {{ form.anime.label_tag }}
+              {{ form.anime }}
+            </div>
+            <div class="input-field">
+              {{ form.description.label_tag }}
+              {{ form.description }}
+            </div>
+            <div class="input-field">
+              {{ form.year.label_tag}} 
+              {{ form.year }}
+            </div>
+            <div class="input-field">
+              <input type="submit" value="Submit" class="btn">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 {% endblock %}
