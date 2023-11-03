@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 GRADES = [
     ('P', 'Pristine'),
@@ -28,6 +29,8 @@ class Card(models.Model):
     description = models.TextField(max_length=250)
     year = models.IntegerField()
     merchen = models.ManyToManyField(Merch)
+    # Add the foreign key linking to a user instance
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name} ({self.id})'

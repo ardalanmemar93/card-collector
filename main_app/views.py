@@ -4,6 +4,11 @@ import boto3
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Card, Merch, Photo
 from .forms import ApraisalForm
 
@@ -14,12 +19,15 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def cards_index(request):
-    cards = Card.objects.all()
+    cards = Card.objects.filter(user=request.user)
     return render(request, 'cards/index.html', {
         'cards': cards
     })
-    
+
+
+@login_required   
 def cards_detail(request, card_id):
     card = Card.objects.get(id=card_id)
     id_list = card.merchen.all().values_list('id')
@@ -30,19 +38,25 @@ def cards_detail(request, card_id):
         'merchen': merchen_card_doesnt_have
         })
 
-class CardCreate(CreateView):
+class CardCreate(LoginRequiredMixin, CreateView):
     model = Card
     fields = ['number', 'anime', 'description', 'year']
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-class CardUpdate(UpdateView):
+class CardUpdate(LoginRequiredMixin, UpdateView):
   model = Card
   # Let's disallow the renaming of a card by excluding the name field!
   fields = ['number', 'anime', 'description', 'year']
 
-class CardDelete(DeleteView):
+class CardDelete(LoginRequiredMixin, DeleteView):
   model = Card
   success_url = '/cards'
-  
+
+
+@login_required  
 def add_apraisal(request, card_id):
       # create a ModelForm instance using the data in request.POST
       form = ApraisalForm(request.POST)
@@ -55,28 +69,32 @@ def add_apraisal(request, card_id):
       return redirect('detail', card_id=card_id)
   
   
-class MerchList(ListView):
+class MerchList(LoginRequiredMixin, ListView):
     model = Merch
     
-class MerchDetail(DetailView):
+class MerchDetail(LoginRequiredMixin, DetailView):
     model = Merch
     
-class MerchCreate(CreateView):
+class MerchCreate(LoginRequiredMixin, CreateView):
     model = Merch
     fields = '__all__'
     
-class  MerchUpdate(UpdateView):
+class  MerchUpdate(LoginRequiredMixin, UpdateView):
     model = Merch
     fields = ['name', 'item']
     
-class MerchDelete(DeleteView):
+class MerchDelete(LoginRequiredMixin, DeleteView):
     model = Merch
     success_url = '/merchen'
-    
+
+
+@login_required   
 def assoc_merch(request, card_id, merch_id):
     Card.objects.get(id=card_id).merchen.add(merch_id)
     return  redirect('detail', card_id=card_id)
-    
+
+
+@login_required    
 def unassoc_merch(request, card_id, merch_id):
     Card.objects.get(id=card_id).merchen.remove(merch_id)
     return redirect('detail', card_id=card_id)
@@ -96,3 +114,18 @@ def add_photo(request, card_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('detail', card_id=card_id)
+
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      login(request, user)
+      return redirect('index')
+    else:
+      error_message = 'Invalid sign up - try again'
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)

@@ -10,7 +10,6 @@ urlpatterns = [
     path('cards/<int:pk>/update/', views.CardUpdate.as_view(), name='cards_update'),
     path('cards/<int:pk>/delete/', views.CardDelete.as_view(), name='cards_delete'),
     path('cards/<int:card_id>/add_apraisal/', views.add_apraisal, name='add_apraisal'),
-    
     path('cards/<int:card_id>/add_photo/', views.add_photo, name='add_photo'),
     path('cards/<int:card_id>/assoc_merch/<int:merch_id>/', views.assoc_merch, name='assoc_merch'),
     path('cards/<int:card_id>/unassoc_merch/<int:merch_id>/', views.unassoc_merch, name='unassoc_merch'),
@@ -19,4 +18,5 @@ urlpatterns = [
     path('merchen/create/', views.MerchCreate.as_view(), name='merchen_create'),
     path('merchen/<int:pk>/update/', views.MerchUpdate.as_view(), name='merchen_update'),
     path('merchen/<int:pk>/delete/', views.MerchDelete.as_view(), name='merchen_delete'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]

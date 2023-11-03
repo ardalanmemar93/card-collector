@@ -15,12 +15,18 @@
     <nav>
       <div class="nav-wrapper blue-grey darken-1">
         <a href="{% url 'home' %}" class="brand-logo">&nbsp;&nbsp;Card Collector</a>
-        <ul id="nav-mobile" class="right">
+        <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
+          {% if user.is_authenticated %}
           <li><a href="{% url 'merchen_create' %}">Add a Merch</a></li>
           <li><a href="{% url 'merchen_index' %}">View All Merch</a></li>
           <li><a href="{% url 'cards_create' %}">Add a Card</a></li>
           <li><a href="{% url 'index' %}">View All My Cards</a></li>
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
