@@ -31,16 +31,17 @@ class Card(models.Model):
     merchen = models.ManyToManyField(Merch)
     # Add the foreign key linking to a user instance
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return f'{self.name} ({self.id})'
 
-def get_absolute_url(self):
-    return reverse('detail', kwargs={'card_id': self.id})
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'card_id': self.id})
     
-def appraised_for_current_month(self):
-    today = date.today()
-    return self.apraisal_set.filter(date__month=today.month, date__year=today.year).count() 
+    def appraised_for_current_month(self):
+        today = date.today()
+        return self.apraisal_set.filter(date__month=today.month, date__year=today.year).count() 
 
 class Apraisal(models.Model):
     date = models.DateField('apraisal date')
@@ -49,7 +50,11 @@ class Apraisal(models.Model):
         choices=GRADES,
         default=GRADES[2][0],
     )
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    card = models.ForeignKey(
+        Card,
+        on_delete=models.CASCADE
+    )
+   
 
     def __str__(self):
         return f"{self.get_grade_display()} on {self.date}"

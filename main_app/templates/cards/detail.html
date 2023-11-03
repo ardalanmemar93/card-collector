@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<!-- New Markup Below -->
+
 <div class="row">
   <div class="col s6">
     <!-- Image Upload Section -->
@@ -43,7 +43,6 @@
   <div class="col s6">
     <form action="{% url 'add_apraisal' card.id %}" method="POST">
       {% csrf_token %}
-      <!-- Render the inputs -->
       {{ apraisal_form.as_p }}
       <input type="submit" class="btn" value="Add Appraisal">
     </form>

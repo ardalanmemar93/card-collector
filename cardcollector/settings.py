@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 environ.Env()
 environ.Env.read_env()
@@ -84,6 +85,21 @@ DATABASES = {
         'NAME': 'cardcollector',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ['DBNAME'],
+#         'USER': os.environ['DBUSER'],
+#         'PASSWORD': os.environ['DBPASSWORD'],
+#         'HOST': 'ep-small-wind-93790478.us-east-2.aws.neon.tech',
+#          'OPTIONS': {
+#              'sslmode': 'require',
+#         }
+#     }
+# }
+
 
 
 # Password validation
